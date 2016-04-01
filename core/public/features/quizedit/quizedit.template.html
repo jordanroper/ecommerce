@@ -1,0 +1,105 @@
+<quiz-login user="user"></quiz-login>
+<quiz-menu user="user"></quiz-menu>
+<flash-message flash="flash"></flash-message>
+
+
+<md-card>
+    <md-card-content>
+
+        <!--<md-content layout="column" layout-margin layout-padding > -->
+        <h3 class="md-display-1">{{ creatingOrUpdating }} Quiz</h3>
+
+        <md-content layout-lg="column" layout-gt-lg="row" layout-margin layout-padding>
+
+            <md-card layout-fill>
+                <md-card-content>
+                    <h2 class="md-title">Instructions and Stem</h2>
+                    <form name="instructionsForm">
+                        <md-input-container class="md-block">
+                            <label>Instructions</label>
+                            <input required name="instructions" ng-model="quizInProgress.instructions" minlength="1" maxlength="200">
+                            <div ng-messages="instructionsForm.instructions.$error" role="alert">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                    Please type clear instructions
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Stem</label>
+                            <input required name="stem" ng-model="quizInProgress.stem" minlength="1" maxlength="200">
+                            <div ng-messages="instructionsForm.stem.$error" role="alert">
+                                <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                    Please type the stem of the question
+                                </div>
+                            </div>
+                        </md-input-container>
+                    </form>
+                </md-card-content>
+            </md-card>
+
+        </md-content>
+
+        <md-content layout-lg="column" layout-gt-lg="row" layout-margin layout-padding>
+
+            <md-card layout-fill >
+                <md-card-content>
+                    <h2 class="md-title"><i class="mdi mdi-check"></i> Truthy Answers</h2>
+                    <form ng-submit="addToOptions(tempTruthy, 'truthy')" name="truthyForm">
+                        <md-input-container class="md-block">
+                            <label>Type truthiness and press Enter...</label>
+                            <input name="truthyAnswer" ng-model="tempTruthy" maxlength="200">
+                        </md-input-container>
+                        <md-list>
+                            <md-list-item ng-repeat="truthy in quizInProgress.truthies">
+                                <span ng-click="editOption(truthy, 'truthy')">{{ truthy }}</span>
+                            </md-list-item>
+                        </md-list>
+                    </form>
+                </md-card-content>
+            </md-card>
+
+        </md-content>
+
+        <md-content layout-lg="column" layout-gt-lg="row" layout-margin layout-padding>
+
+            <md-card layout-fill >
+                <md-card-content>
+                    <h2 class="md-title">Falsy Answers</h2>
+                    <form ng-submit="addToOptions(tempFalsy, 'falsy')" name="falsyForm">
+                        <md-input-container class="md-block">
+                            <label>Type falsiness and press Enter...</label>
+                            <input name="falsyAnswer" ng-model="tempFalsy" minlength="1" maxlength="200">
+                        </md-input-container>
+                        <md-list>
+                            <md-list-item ng-repeat="falsy in quizInProgress.falsies">
+                                <span ng-click="editOption(falsy, 'falsy')">{{ falsy }}</span>
+                            </md-list-item>
+                        </md-list>
+                    </form>
+                </md-card-content>
+            </md-card>
+
+        </md-content>
+
+        <md-content layout-lg="column" layout-gt-lg="row" layout-margin layout-padding>
+
+            <md-card layout-fill >
+                <md-card-content>
+                    <h2 class="md-title">Tags</h2>
+                    <md-chips ng-model="quizInProgress.tags" readonly="readOnly"></md-chips>
+                    <br>
+                </md-card-content>
+            </md-card>
+
+        </md-content>
+
+        <div class="md-actions" layout="row" layout-align="end center">
+            <!--<md-button ng-click="logQuizInProgress()">Log Quiz in Progress</md-button>-->
+            <md-button ng-click="createOrUpdateQuiz()">{{ creatingOrUpdating }} Quiz</md-button>
+            <md-button ng-click="cancelOperation()">Cancel</md-button>
+        </div>
+
+    </md-card-content>
+</md-card>
+
+{{ flash }}

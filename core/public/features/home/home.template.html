@@ -1,0 +1,16 @@
+<quiz-login user="user"></quiz-login>
+<quiz-menu user="user"></quiz-menu>
+
+<md-card ng-show="user">
+    <img ng-src="{{user.image}}" class="md-card-image" alt="{{ user.displayName }}">
+    <md-card-content>
+        <h2 class="md-title">{{ user.displayName }}</h2>
+        <p>
+            {{ user.email }}
+        </p>
+    </md-card-content>
+    <div class="md-actions" layout="row" layout-align="end center">
+        <md-button>Action 1</md-button>
+        <md-button>Action 2</md-button>
+    </div>
+</md-card>

@@ -1,0 +1,24 @@
+<quiz-login user="user"></quiz-login>
+<quiz-menu user="user"></quiz-menu>
+<flash-message flash="flash"></flash-message>
+
+<div layout="row">
+    <md-card ng-repeat="test in tests">
+        <img ng-src="{{test.creator.image}}" class="md-card-image" alt="{{ test.creator.displayName }}">
+        <md-card-content>
+            <md-subheader>{{ test.title }}</md-subheader>
+            <p ng-repeat="quiz in test.quizzes"> {{ quiz.stem }}</p>
+        </md-card-content>
+        <md-divider></md-divider>
+        <md-card-footer layout-align="space-between center">
+            <div class="md-actions" layout="row">
+                <md-button ng-disabled="test.creator._id !== user._id" class="md-primary md-button" ng-click="editTest(test)">Edit</md-button>
+                <md-button ng-disabled="test.creator._id !== user._id" class="md-raised md-warn" ng-click="destroyTest(test)">Delete</md-button>
+                <button ng-click="setAsCurrentTest(test)">set as current test</button>
+            </div>
+        </md-card-footer>
+    </md-card>
+</div>
+<button ng-click="logCurrentTest()">log current test</button>
+
+<!--{{ tests }}-->

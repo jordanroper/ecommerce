@@ -1,0 +1,54 @@
+<quiz-login user="user"></quiz-login>
+<quiz-menu user="user"></quiz-menu>
+<flash-message flash="flash"></flash-message>
+
+<md-card>
+    <md-card-content>
+        <md-content layout="column" layout-margin layout-padding>
+            <h3 class="md-display-1">{{ creatingOrUpdating }} Test</h3>
+            <form name="titleForm">
+                <md-input-container class="md-block">
+                    <label>Title</label>
+                    <input required name="title" ng-model="testInProgress.title" minlength="1" maxlength="200">
+                    <div ng-messages="titleForm.title.$error" role="alert">
+                        <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                            Please type a title for your test
+                        </div>
+                    </div>
+                </md-input-container>
+            </form>
+        </md-content>
+
+
+        <div layout="row">
+            <md-card ng-repeat="quiz in testInProgress.quizzes">
+                <!--<img ng-src="{{quiz.creator.image}}" class="md-card-image" alt="{{ quiz.creator.displayName }}">-->
+                <md-card-content>
+                    <md-subheader>{{ quiz.instructions }}</md-subheader>
+                    <h4 class="md-headline">{{ quiz.stem }}</h4>
+                    <p ng-repeat="truthy in quiz.truthies"><i class="mdi mdi-check"></i> {{ truthy }}</p>
+                    <p ng-repeat="falsy in quiz.falsies"><i class="mdi mdi-close"></i> {{ falsy }}</p>
+                </md-card-content>
+                <md-divider></md-divider>
+                <md-card-footer layout-align="space-between center">
+                    <div>
+                        <md-checkbox ng-model="quiz.isSelected" ng-click="addOrRemoveFromSelectedQuizzes(quiz)" aria-label="quiz">Include in test</md-checkbox>
+                    </div>
+                    <div class="md-actions" layout="row">
+                        <md-button ng-disabled="quiz.creator._id !== user._id" class="md-primary md-button" ng-click="editQuiz(quiz)">Edit</md-button>
+                        <md-button ng-disabled="quiz.creator._id !== user._id" class="md-raised md-warn" ng-click="destroyQuiz(quiz._id)">Delete</md-button>
+                    </div>
+                </md-card-footer>
+                <!--{{ quiz.isSelected }}-->
+            </md-card>
+        </div>
+        <!--{{ selectedQuizzesIds }}-->
+
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button ng-click="createOrUpdateTest()">{{ creatingOrUpdating }} Test</md-button>
+        </div>
+
+    </md-card-content>
+</md-card>
+
+{{ testInProgress }}

@@ -1,0 +1,28 @@
+<quiz-login user="user"></quiz-login>
+<quiz-menu user="user"></quiz-menu>
+<flash-message flash="flash"></flash-message>
+
+<div layout-wrap layout="row">
+    <md-card ng-show="displayMine ? quiz.creator._id === user._id : quiz.creator" ng-repeat="quiz in quizzes">
+        <img ng-src="{{quiz.creator.image}}" class="md-card-image" alt="{{ quiz.creator.displayName }}">
+        <md-card-content>
+            <md-subheader>{{ quiz.instructions }}</md-subheader>
+            <h4 class="md-headline">{{ quiz.stem }}</h4>
+            <p ng-repeat="truthy in quiz.truthies"><i class="mdi mdi-check"></i> {{ truthy }}</p>
+            <p ng-repeat="falsy in quiz.falsies"><i class="mdi mdi-close"></i> {{ falsy }}</p>
+        </md-card-content>
+        <md-divider></md-divider>
+        <md-card-footer layout-align="space-between center">
+            <div>
+                <md-checkbox ng-model="quiz.isSelected" ng-click="addOrRemoveFromSelectedQuizzes(quiz)" aria-label="quiz">Include in test</md-checkbox>
+            </div>
+            <div class="md-actions" layout="row">
+                <md-button ng-disabled="quiz.creator._id !== user._id" class="md-primary md-button" ng-click="editQuiz(quiz)">Edit</md-button>
+                <md-button ng-disabled="quiz.creator._id !== user._id" class="md-raised md-warn" ng-click="destroyQuiz(quiz._id)">Delete</md-button>
+            </div>
+        </md-card-footer>
+        <!--{{ quiz.isSelected }}-->
+    </md-card>
+</div>
+<!--{{ selectedQuizzesIds }}-->
+
